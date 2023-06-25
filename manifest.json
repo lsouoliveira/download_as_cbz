@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Download as cbz",
+  "description": "Download images from a webpage as a cbz file.",
+  "version": "1.0",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+      {
+          "matches": [],
+          "js": ["jszip.min.js", "FileSaver.min.js"]
+      }
+  ],
+  "permissions": [
+    "menus",
+    "<all_urls>"
+  ]
+}
