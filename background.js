@@ -97,6 +97,18 @@ const createPluginCode = (targetElementId) => {
                 })
             }
 
+            const extractChapterName = () => {
+                const matches = document.body.innerText.match(/chapter\\s*([0-9]+(\\.[0-9]+)?)/ig)
+
+                return (matches && matches[0]) || ""
+            }
+
+            const getChapterName = () => {
+                const name = extractChapterName()
+
+                return name.toLowerCase().split(" ").join("_")
+            }
+
             const exportPageAsCbz = () => {
                 const imgElement = browser.menus.getTargetElement(${targetElementId})
                 const parentContainer = getParentContainer(imgElement)
@@ -107,7 +119,7 @@ const createPluginCode = (targetElementId) => {
 
                 createZipFileFromImages(imgElements)
                 .then(function(content) {
-                    saveAs(content, \`${(new Date()).getTime()}.cbz\`)
+                    saveAs(content, (getChapterName() || (new Date().getTime())) + ".cbz")
                 })
             }
 
